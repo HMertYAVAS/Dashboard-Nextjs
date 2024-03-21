@@ -1,6 +1,11 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { IoNotifications } from "react-icons/io5";
+import Navbar from '@/components/Navbar';
+import Sidebar from '@/components/Sidebar';
+import { Tab } from '@headlessui/react';
+import Tabs from '@/components/Tabs';
+import Card from '@/components/Card';
 
 
 
@@ -44,31 +49,26 @@ export default function DashboardPage() {
 
 
   return (
-    <div className="">
-      <nav class=" bg-white border-gray-200 dark:bg-gray-900">
-        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xs p-4">
-          <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <span class="self-center text-3xl font-semibold whitespace-nowrap dark:text-white">LOGO</span>
-          </a>
-          <div class="flex items-center space-x-6 rtl:space-x-reverse">
-            <a href="#" class="text-sm  text-blue-600 dark:text-blue-500 hover:underline">{<IoNotifications size={'2em'} />}</a>
-          </div>
-        </div>
-      </nav>
+    <div className="overflow-hidden w-full">
 
-      <aside className='h-screen w-64 bg-gray-900'>
-        <div className='flex-col'>
-          <div className='p-10'>
-            <div>name</div>
-            <div>name</div>
+      <Navbar />
+      <div className='flex flex-row'>
+        <Sidebar />
+        <div className='flex flex-col bg-gray-200 w-full h-screen relative'>
+          <h1 className='text-3xl font-semibold my-8 mx-8 text-gray-800'>Tasks</h1>
+          <Tabs />
+          <div className='flex flex-col  mx-8 my-8'>
+            <div className='flex flex-row '>
+              <Card />
+              <Card />
+              <Card />
+            </div>
           </div>
-          
 
         </div>
+      </div>
 
-      </aside>
 
-     
     </div>
   );
 }
