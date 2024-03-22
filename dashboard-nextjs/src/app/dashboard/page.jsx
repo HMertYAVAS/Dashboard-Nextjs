@@ -14,9 +14,9 @@ export default function DashboardPage() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const accessToken = localStorage.getItem('token')
 
   useEffect(() => {
+    const accessToken = localStorage.getItem('token')
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -45,23 +45,22 @@ export default function DashboardPage() {
     };
 
     fetchData();
-  }, [accessToken]);
+  }, []);
 
 
   return (
     <div className="overflow-hidden w-full">
-
       <Navbar />
       <div className='flex flex-row'>
         <Sidebar />
         <div className='flex flex-col bg-gray-200 w-full h-screen relative'>
           <h1 className='text-3xl font-semibold my-8 mx-8 text-gray-800'>Tasks</h1>
           <Tabs />
-          <div className='flex flex-col  mx-8 my-8'>
-            <div className='flex flex-row '>
-              <Card />
-              <Card />
-              <Card />
+          <div className='flex flex-col  mx-8 my-8 '>
+            <div className='flex w-10/12 h-96 flex-row scrollbar scrollbar-thumb-slate-800 scrollbar-track-slate-600 overflow-x-scroll'>
+              {data && data.map((card, index) => (
+                <Card Board={card} key={index}/>
+              ))}
             </div>
           </div>
 
