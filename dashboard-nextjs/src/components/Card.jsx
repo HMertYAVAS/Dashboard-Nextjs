@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
+import TaskPopup from './TaskPopup';
 
 export default function Card({ Board }) {
+
+	const [isPopupOpen, setPopupOpen] = useState(false);
+
+	const togglePopup = () => {
+	  setPopupOpen(!isPopupOpen);
+	};
+  
+	const handleCreateTask = (formData) => {
+	  console.log(formData);
+	  // Handle task creation logic here
+	  setPopupOpen(false);
+	};
 	return (
 		<>
 			{console.log(Board)}
@@ -10,7 +23,7 @@ export default function Card({ Board }) {
 					<h3 className="text-base  font-medium">{Board.name}</h3>
 				</div>
 
-				<div className='overflow-y-auto'>
+				<div className='overflow-y-auto flex-row scrollbar-thumb-slate-800 scrollbar-track-slate-600 scrollbar-thin'>
 					<div className="text-sm mt-2 ">
 						{
 						//Order and listed items
@@ -30,8 +43,10 @@ export default function Card({ Board }) {
 
 				</div>
 
-				<button className="mt-3  p-1 hover: hover:bg-gray-500 rounded text-start">Add a card...</button>
+				<button className="mt-3  p-1 hover: hover:bg-gray-500 rounded text-start" onClick={togglePopup}>Add a card...</button>
+
 			</div>
+				<TaskPopup boardId ={Board.id} isOpen={isPopupOpen} onClose={togglePopup} onSubmit={handleCreateTask} />
 		</>
 	)
 }

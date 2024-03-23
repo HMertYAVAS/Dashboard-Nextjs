@@ -3,9 +3,10 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { IoNotifications } from "react-icons/io5";
 import Navbar from '@/components/Navbar';
 import Sidebar from '@/components/Sidebar';
-import { Tab } from '@headlessui/react';
 import Tabs from '@/components/Tabs';
 import Card from '@/components/Card';
+import TaskPopup from '@/components/TaskPopup';
+
 
 
 
@@ -66,7 +67,7 @@ export default function DashboardPage() {
 
         </div>
       </div>
-
+      <TaskPopup/>
 
     </div>
   );
