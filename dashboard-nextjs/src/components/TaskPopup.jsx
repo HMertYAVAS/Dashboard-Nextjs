@@ -6,8 +6,9 @@ function TaskModal({boardId, isOpen, onClose, onSubmit }) {
         boardId:boardId,
         name: '',
         description: '',
-
-        flagId: 1
+        flagId: 1,
+        startDate:'',
+        endDate:''
     });
 
     let accessToken=''
@@ -49,7 +50,6 @@ function TaskModal({boardId, isOpen, onClose, onSubmit }) {
           // Call the onSubmit callback if provided
           if (onSubmit) {
             onSubmit(formData);
-            console.log(accessToken)
           }
         } catch (error) {
           console.error('Error creating task:', error.message);
@@ -72,18 +72,18 @@ function TaskModal({boardId, isOpen, onClose, onSubmit }) {
                     </div>
                     <div className="mb-4">
                         <label htmlFor="startDate" className="block text-gray-700 text-sm font-bold mb-2">Start Date:</label>
-                        <input type="datetime-local" id="startDate" name="startDate" value={formData.startDate} onChange={handleChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                        <input type="datetime-local" id="startDate" name="startDate" value={formData.startDate} onChange={handleChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required/>
                     </div>
                     <div className="mb-4">
                         <label htmlFor="endDate" className="block text-gray-700 text-sm font-bold mb-2">End Date:</label>
-                        <input type="datetime-local" id="endDate" name="endDate" value={formData.endDate} onChange={handleChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                        <input type="datetime-local" id="endDate" name="endDate" value={formData.endDate} onChange={handleChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required/>
                     </div>
                     <div className="mb-4">
                         <label htmlFor="flagId" className="block text-gray-700 text-sm font-bold mb-2">Flag ID:</label>
-                        <input type="number" id="flagId" name="flagId" value={formData.flagId} onChange={handleChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                        <input type="number" id="flagId" name="flagId" value={formData.flagId} onChange={handleChange} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required/>
                     </div>
                     <div className="flex items-center justify-center">
-                        <button type="submit" className="bg-gray-200 hover:bg-blue-100 text-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create Task</button>
+                        <button type="submit" className="bg-green-400 hover:bg-green-300 text-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create Task</button>
                     </div>
                 </form>
             </Modal.Body>

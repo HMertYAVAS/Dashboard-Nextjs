@@ -14,40 +14,43 @@ export default function DashboardPage() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  let accessToken = ""
+  
+  const fetchData = async (accessToken) => {
+    try {
+      setLoading(true);
+      setError(null);
 
-
-  useEffect(() => {
-    const accessToken = localStorage.getItem('token')
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        // Make API request to the Swagger-documented endpoint
-        const response = await fetch('/api/boards', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `${accessToken}`
-          }
-        })
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+      const response = await fetch('/api/boards', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${accessToken}`
         }
-
-        const responseData = await response.json();
-        setData(responseData.data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
+      })
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-    };
-
-    fetchData();
+      
+      const responseData = await response.json();
+      setData(responseData.data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  useEffect(() => {
+    accessToken = localStorage.getItem('token')
+    fetchData(accessToken);
   }, []);
-
+  
+  const handlePopupClose = (accessToken) => {
+    fetchData(accessToken); // Refetch data when the popup is closed
+  };
+  
 
   return (
     <div className="overflow-hidden w-full">
@@ -60,7 +63,7 @@ export default function DashboardPage() {
           <div className='flex flex-col  mx-8 my-8 '>
             <div className='flex w-10/12 h-96 flex-row scrollbar scrollbar-thumb-slate-800 scrollbar-track-slate-600 overflow-x-scroll'>
               {data && data.map((card, index) => (
-                <Card Board={card} key={index}/>
+                <Card Board={card} key={index} onPopupClose={handlePopupClose} />
               ))}
             </div>
           </div>
